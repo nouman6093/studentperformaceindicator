@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Math Score Predictor</title>
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { background: #ffffff; width: 100%; max-width: 540px; padding: 35px; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3); }
+        h2 { text-align: center; color: #0f172a; font-size: 24px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .full-width { grid-column: span 2; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        label { font-size: 13px; font-weight: 600; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; }
+        select, input { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #1e293b; outline: none; transition: border-color 0.2s, box-shadow 0.2s; background: #f8fafc; }
+        select:focus, input:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        button { grid-column: span 2; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 10px; }
+        button:hover { background: #1d4ed8; }
+        button:active { transform: scale(0.99); }
+        .result { margin-top: 24px; padding: 16px; background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 8px; text-align: center; color: #166534; font-size: 18px; font-weight: 700; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Student Performance Predictor</h2>
+    <form action="/predict" method="post" class="grid">
+        <div class="form-group">
+            <label>Gender</label>
+            <select name="gender">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Race / Ethnicity</label>
+            <select name="race_ethnicity">
+                <option value="group A">Group A</option>
+                <option value="group B">Group B</option>
+                <option value="group C">Group C</option>
+                <option value="group D">Group D</option>
+                <option value="group E">Group E</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Parental Education Level</label>
+            <select name="parental_level_of_education">
+                <option value="bachelor's degree">Bachelor's Degree</option>
+                <option value="some college">Some College</option>
+                <option value="master's degree">Master's Degree</option>
+                <option value="associate's degree">Associate's Degree</option>
+                <option value="high school">High School</option>
+                <option value="some high school">Some High School</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Lunch Type</label>
+            <select name="lunch">
+                <option value="standard">Standard</option>
+                <option value="free/reduced">Free / Reduced</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Test Prep Course</label>
+            <select name="test_preparation_course">
+                <option value="none">None</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Reading Score (0-100)</label>
+            <input type="number" name="reading_score" min="0" max="100" placeholder="e.g. 75" required>
+        </div>
+
+        <div class="form-group">
+            <label>Writing Score (0-100)</label>
+            <input type="number" name="writing_score" min="0" max="100" placeholder="e.g. 80" required>
+        </div>
+
+        <button type="submit">Predict Math Score</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">Predicted Math Score: {{ prediction }}</div>
+    {% endif %}
+</div>
+
+</body>
+</html>
